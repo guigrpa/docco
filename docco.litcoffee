@@ -148,6 +148,11 @@ normal below.
           save() if /^(---+|===+)$/.test line
         else
           hasCode = yes
+          if config.indent != null
+            oldLen = 0
+            while oldLen != line.length
+              oldLen = line.length
+              line = line.replace(/^(\x20*)\t/, '$1' + config.indent)
           codeText += line + '\n'
       save()
 
@@ -229,7 +234,7 @@ name of the source file.
 
       lang = getLanguage source, config
 
-      html = config.template 
+      html = config.template
         sources:      config.sources
         css:          path.join(path.relative(destinationDir, config.output), path.basename(config.css))
         destination:  htmlPath
@@ -260,6 +265,8 @@ user-specified options.
       extension:  null
       languages:  {}
       marked:     null
+      tabSize:    null
+      indent:     null
 
 **Configure** this particular run of Docco. We might use a passed-in external
 template, or one of the built-in **layouts**. We only attempt to process
@@ -269,6 +276,12 @@ source files for languages for which we have definitions.
       config = _.extend {}, defaults, _.pick(options, _.keys(defaults)...)
 
       config.languages = buildMatchers config.languages
+
+Determine what the indent should be if the user has supplied a custom tab-size
+on the command line.
+
+      if config.tabSize != null
+        config.indent = Array(parseInt(config.tabSize) + 1).join(' ')
 
 The user is able to override the layout file used with the `--template` parameter.
 In this case, it is also neccessary to explicitly specify a stylesheet file.
@@ -384,6 +397,7 @@ Parse options using [Commander](https://github.com/visionmedia/commander.js).
         .option('-t, --template [file]',  'use a custom .jst template', c.template)
         .option('-e, --extension [ext]',  'assume a file extension for all inputs', c.extension)
         .option('-m, --marked [file]',    'use custom marked options', c.marked)
+        .option('-t, --tab-size [size]',  'convert leading tabs to X spaces')
         .parse(args)
         .name = "docco"
       if commander.args.length
