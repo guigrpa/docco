@@ -280,7 +280,7 @@ source files for languages for which we have definitions.
 Determine what the indent should be if the user has supplied a custom tab-size
 on the command line.
 
-      if config.tabSize != null
+      if config.tabSize
         config.indent = Array(parseInt(config.tabSize) + 1).join(' ')
 
 The user is able to override the layout file used with the `--template` parameter.
@@ -397,7 +397,7 @@ Parse options using [Commander](https://github.com/visionmedia/commander.js).
         .option('-t, --template [file]',  'use a custom .jst template', c.template)
         .option('-e, --extension [ext]',  'assume a file extension for all inputs', c.extension)
         .option('-m, --marked [file]',    'use custom marked options', c.marked)
-        .option('-t, --tab-size [size]',  'convert leading tabs to X spaces')
+        .option('--tab-size [size]',      'convert leading tabs to X spaces')
         .parse(args)
         .name = "docco"
       if commander.args.length

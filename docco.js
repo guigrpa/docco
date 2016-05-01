@@ -224,7 +224,7 @@
     var allSources, config, dir, fileOrDir, j, len, ref, stats;
     config = _.extend({}, defaults, _.pick.apply(_, [options].concat(slice.call(_.keys(defaults)))));
     config.languages = buildMatchers(config.languages);
-    if (config.tabSize !== null) {
+    if (config.tabSize) {
       config.indent = Array(parseInt(config.tabSize) + 1).join(' ');
     }
     if (options.template) {
@@ -329,7 +329,7 @@
       args = process.argv;
     }
     c = defaults;
-    commander.version(version).usage('[options] directories').option('-L, --languages [file]', 'use a custom languages.json', _.compose(JSON.parse, fs.readFileSync)).option('-l, --layout [name]', 'choose a layout (parallel, linear or classic)', c.layout).option('-o, --output [path]', 'output to a given folder', c.output).option('-c, --css [file]', 'use a custom css file', c.css).option('-t, --template [file]', 'use a custom .jst template', c.template).option('-e, --extension [ext]', 'assume a file extension for all inputs', c.extension).option('-m, --marked [file]', 'use custom marked options', c.marked).option('-t, --tab-size [size]', 'convert leading tabs to X spaces').parse(args).name = "docco";
+    commander.version(version).usage('[options] directories').option('-L, --languages [file]', 'use a custom languages.json', _.compose(JSON.parse, fs.readFileSync)).option('-l, --layout [name]', 'choose a layout (parallel, linear or classic)', c.layout).option('-o, --output [path]', 'output to a given folder', c.output).option('-c, --css [file]', 'use a custom css file', c.css).option('-t, --template [file]', 'use a custom .jst template', c.template).option('-e, --extension [ext]', 'assume a file extension for all inputs', c.extension).option('-m, --marked [file]', 'use custom marked options', c.marked).option('--tab-size [size]', 'convert leading tabs to X spaces').parse(args).name = "docco";
     if (commander.args.length) {
       return document(commander);
     } else {
