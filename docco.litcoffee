@@ -148,7 +148,7 @@ normal below.
           save() if /^(---+|===+)$/.test line
         else
           hasCode = yes
-          if config.indent != null
+          if config.indent
             oldLen = 0
             while oldLen != line.length
               oldLen = line.length
