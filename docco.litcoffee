@@ -397,7 +397,7 @@ Parse options using [Commander](https://github.com/visionmedia/commander.js).
         .option('-t, --template [file]',  'use a custom .jst template', c.template)
         .option('-e, --extension [ext]',  'assume a file extension for all inputs', c.extension)
         .option('-m, --marked [file]',    'use custom marked options', c.marked)
-        .option('--tab-size [size]',      'convert leading tabs to X spaces')
+        .option('-T, --tab-size [size]',      'convert leading tabs to X spaces')
         .parse(args)
         .name = "docco"
       if commander.args.length
